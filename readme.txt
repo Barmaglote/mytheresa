@@ -21,3 +21,8 @@ GRANT ALL PRIVILEGES ON DATABASE booksdb TO booksservice;
 
 Задаем служебной учетке пароль
 ALTER USER booksservice WITH password 'bookspassword'
+
+Установка Doctrine для работы с БД (ORM)
+composer require symfony/orm-pack
+composer require --dev symfony/maker-bundle
+
