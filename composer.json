@@ -1,6 +1,7 @@
 {
     "require": {
-        "symfony/orm-pack": "^2.1"
+        "symfony/orm-pack": "^2.1",
+        "knplabs/knp-paginator-bundle": "^5.4"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.29"

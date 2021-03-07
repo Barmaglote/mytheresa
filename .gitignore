@@ -1,2 +1,4 @@
 /vendor/*
 jobtest/composer.lock
+jobtest/node_modules/*
+composer.lock

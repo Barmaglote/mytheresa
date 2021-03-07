@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,8 +15,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BookRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ContainerInterface $container)
     {
+        $this->container = $container;
         parent::__construct($registry, Book::class);
     }
 
@@ -47,4 +49,22 @@ class BookRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllPaginated($request)
+    {
+        $container = $this->container;
+
+        $query = $this->createQueryBuilder('b')
+            ->getQuery();
+
+        $pagenator = $container->get('knp_paginator');
+
+        $result = $pagenator->paginate(
+            $query, 
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 5)
+        );
+
+        return $result;
+    }    
 }
