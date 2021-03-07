@@ -1,3 +1,7 @@
 index:
   path: /
   controller: App\Controller\BookController::index
+
+logout:
+  path: /logout
+  controller: App\Controller\BookController::index

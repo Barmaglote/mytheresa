@@ -8,7 +8,9 @@
             <h1>Books</h1>
         </div>
         <div class="col-2 text-center">
-            <a class="btn btn-primary" href="{{ path('book_new') }}"><i class="bi bi-plus-circle mx-1"></i>Create new</a>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a class="btn btn-primary" href="{{ path('book_new') }}"><i class="bi bi-plus-circle mx-1"></i>Create new</a>
+            {% endif %}                
         </div>
     </div>
 
@@ -33,7 +35,9 @@
                 <td>{{ book.Status ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
+                    {% if is_granted('ROLE_USER') %}                    
                     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+                    {% endif %}                                    
                 </td>
             </tr>
         {% else %}

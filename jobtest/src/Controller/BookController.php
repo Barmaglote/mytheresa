@@ -32,6 +32,10 @@ class BookController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
@@ -65,6 +69,10 @@ class BookController extends AbstractController
      */
     public function edit(Request $request, Book $book): Response
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
@@ -85,6 +93,14 @@ class BookController extends AbstractController
      */
     public function delete(Request $request, Book $book): Response
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }        
+
+        if ($book->getStatus()) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($book);

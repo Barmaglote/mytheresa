@@ -3,7 +3,22 @@
 {% block title %}Book{% endblock %}
 
 {% block body %}
-    <h1>Book</h1>
+
+    <div class="row">
+        <div class="col-8">
+            <h1>Book</h1>
+        </div>
+        <div class="col-2">            
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}            
+                <button class="btn btn-primary" href="{{ path('book_edit', {'id': book.id}) }}"><i class="bi bi-pencil mx-1"></i>edit</button>
+            {% endif %}            
+        </div>                
+        <div class="col-2">        
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}            
+                {{ include('book/_delete_form.html.twig') }}
+            {% endif %}                        
+        </div>    
+    </div>
 
     <table class="table">
         <tbody>
@@ -32,7 +47,4 @@
 
     <a href="{{ path('book_index') }}">back to list</a>
 
-    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
-
-    {{ include('book/_delete_form.html.twig') }}
 {% endblock %}

@@ -55,6 +55,7 @@ class BookRepository extends ServiceEntityRepository
         $container = $this->container;
 
         $query = $this->createQueryBuilder('b')
+            ->where('b.Status = true')
             ->getQuery();
 
         $pagenator = $container->get('knp_paginator');
