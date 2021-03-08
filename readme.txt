@@ -52,6 +52,12 @@ composer require knplabs/knp-paginator-bundle
 Добавляем в проект иконки bootstrap 
 npm i bootstrap-icons
 
+Установка бандла для работы redis
+composer require snc/redis-bundle
+
+Проверка конфигурации перед деплоем
+composer require symfony/requirements-checker
+
 
 
 
